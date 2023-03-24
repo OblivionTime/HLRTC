@@ -28,7 +28,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -91,7 +90,11 @@ export default {
         },
         //初始化
         init() {
-            this.HLrtc = new HLRTC({ method: this.selectValue, room: this.room, server: `wss://192.168.6.28:7880/rtc`, type: this.typeOptions[this.Type] });
+            let host = "localhost:7880"
+            if (process.env.NODE_ENV != 'development') {
+                host = window.location.host
+            }
+            this.HLrtc = new HLRTC({ method: this.selectValue, room: this.room, server: `wss://${host}/rtc`, type: this.typeOptions[this.Type] });
             this.HLrtc.on('getRoom', (room) => {
                 this.room = room;
             })

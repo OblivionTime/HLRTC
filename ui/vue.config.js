@@ -9,6 +9,11 @@
 const path = require('path')
 const fs = require('fs')
 module.exports = {
+    publicPath: './',
+    outputDir: 'ui',
+    assetsDir: './static',
+    lintOnSave: false,
+    productionSourceMap: false,
     devServer: {
         open: false,
         https: {

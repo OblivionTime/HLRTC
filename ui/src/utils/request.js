@@ -7,8 +7,7 @@
  * @LastEditTime: 2022-08-30 12:12:28
  */
 import axios from 'axios'
-var baseURL = `https://127.0.0.1:7880/`
-// var baseURL = 'http://192.168.6.68:7777/v0/api'
+var baseURL = process.env.VUE_APP_BASE_API
 const service = axios.create({
 	baseURL: baseURL,
 	// withCredentials: true,

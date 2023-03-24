@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const rtc_server = require('../server/HLRTC/rtc');
 var app = express();
 app.use(bodyParser.json()); //parse application/json
-app.all("*", function (req, res, next) {
+function cors(req, res, next) {
     //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Origin", "*");
     //允许的header类型
@@ -16,13 +16,15 @@ app.all("*", function (req, res, next) {
         res.sendStatus(200);  //让options尝试请求快速结束
     else
         next();
-});
-app.get("/", function (req, res) {
-    res.send("开启!!!!!!!")
+}
+app.use(express.static('ui'));
+app.get('/', cors, function (req, res) {
+    console.log(123);
+    res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 })
-app.get('/one', (req, res) => {
+app.get('/one', cors, (req, res) => {
     var { room, type } = req.query
-    let err=rtc_server.findRoom(room)
+    let err = rtc_server.findRoom(room)
     let resp
     if (!err) {
         resp = {
